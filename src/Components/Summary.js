@@ -10,6 +10,7 @@ const Summary = () => {
   console.log(eachMovie)
 
   const [showForm, setShowForm] = useState(false)
+  const [submitInfo, setSubmitInfo] = useState(false)
 
   useEffect(() => {
     fetch(`https://api.tvmaze.com/shows/${showId}`)
@@ -24,6 +25,11 @@ const Summary = () => {
     } else {
       return arr.join(' || ')
     }
+  }
+
+  const submitBooking = () => {
+    setShowForm(false)
+    setSubmitInfo(true)
   }
 
 
@@ -148,7 +154,7 @@ const Summary = () => {
                 Your name
               </label>
               <input
-                placeholder='Enter your address'
+                placeholder='Enter your name'
                 type="text"
                 className="form-control"
                 id="exampleInputPassword1"
@@ -171,7 +177,7 @@ const Summary = () => {
                 Check me out
               </label>
             </div>
-            <button  type="submit" className="btn btn-primary ">
+            <button onClick={() => submitBooking()} type="submit" className="btn btn-primary ">
               Submit Booking
             </button>
             <button onClick={() => setShowForm(false)} type="submit" className="btn btn-secondary m-2  ">
@@ -182,6 +188,14 @@ const Summary = () => {
         }
       </div>
 
+      <div className='w-50 mx-auto mb-5'>
+        {submitInfo &&
+          <div>
+            <p className='fs-5 fw-bold text-success'> Booking Successfull </p>
+            <p className='fs-5 text-danger'> Your Ticket number is {Math.floor(Math.random() * 100000)} </p>
+          </div>
+        }
+      </div>
 
     </div>
   );
