@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import BookingModal from './BookingModal';
+
 
 const Summary = () => {
   const { showId } = useParams()
@@ -48,13 +48,8 @@ const Summary = () => {
                 </p>
 
                 <div>
-                  <BookingModal></BookingModal>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
+
+                  <button onClick={() => setShowForm(true)} type="button" class="btn btn-info">
                     Book Ticket
                   </button>
                 </div>
@@ -103,7 +98,91 @@ const Summary = () => {
         </div>
 
       </div>
-      
+
+
+      <div className='w-50 mx-auto mb-5'>
+        {
+          showForm && <form className=' border p-4'>
+            <div className="mb-3">
+              <label htmlFor="movieName" className="form-label">
+                Movie Name
+              </label>
+              <input
+                type="text"
+                value={eachMovie?.name}
+                readOnly
+                className="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+
+            </div>
+            <div className="mb-3">
+              <label htmlFor="exampleInputPassword1" className="form-label">
+                Status
+              </label>
+              <input
+                value={eachMovie?.status}
+                type="text"
+                readOnly
+                className="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="exampleInputPassword1" className="form-label">
+                Schedule
+              </label>
+              <input
+                value={
+                  eachMovie?.schedule ? `Schedule : ${scheduleDay(eachMovie?.schedule?.days)}  ${eachMovie?.schedule?.time} (${eachMovie?.runtime}min)` : ''
+                }
+                type="text"
+                readOnly
+                className="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="exampleInputPassword1" className="form-label">
+                Your name
+              </label>
+              <input
+                placeholder='Enter your address'
+                type="text"
+                className="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="exampleInputPassword1" className="form-label">
+                Your address
+              </label>
+              <input
+                placeholder='Enter your address'
+                type="text"
+                className="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+            <div className="mb-3 form-check">
+              <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                Check me out
+              </label>
+            </div>
+            <button  type="submit" className="btn btn-primary ">
+              Submit Booking
+            </button>
+            <button onClick={() => setShowForm(false)} type="submit" className="btn btn-secondary m-2  ">
+              close
+            </button>
+          </form>
+
+        }
+      </div>
+
+
     </div>
   );
 };
